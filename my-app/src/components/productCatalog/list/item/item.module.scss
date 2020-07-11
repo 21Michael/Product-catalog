@@ -1,0 +1,123 @@
+.section {
+    position: relative;
+}
+
+.title {
+    padding: 20px;
+    text-align: center;
+    width: 100%;
+    color: white;
+    font-size: 2em;
+    font-weight: bolder;
+    text-transform: uppercase;
+}
+
+.list {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.item {
+    position: relative;
+    width: 240px;
+    text-align: center;
+    box-shadow: 2px 2px 1px #ff824d;
+    margin: 10px;
+    background-color: white;
+}
+
+
+.img__block {
+    width: inherit;
+}
+
+.img {
+    width: 100%;
+}
+
+
+.info__block {
+    width: 100%;
+    border-top: 1px solid #bab3b2;
+    padding: 0 10px;
+    font-size: 1.3em;
+    margin-bottom: 10px;
+}
+
+.title {
+    font-weight: bolder;
+    line-height: 2em;
+}
+
+.description {
+    font-family: Open Sans;
+    color: hsla(0, 0%, 25%, 1);
+    line-height: 1em;
+    font-size: 0.9em;
+    font-style: italic;
+}
+
+
+.price__block {
+    border-top: 1px solid #bab3b2;
+    margin-bottom: 5px;
+    padding: 0 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.price {
+    font-weight: bolder;
+    font-family: Open Sans;
+    font-style: italic;
+    font-size: 1.3em;
+    padding: 10px;
+}
+
+.discount {
+    color: #ff7133;
+    text-shadow: 1px 1px 1px black;
+}
+
+.days {
+    font-size: 0.8em;
+    font-style: italic;
+    font-weight: bold;
+ line-height: 1.2em;
+}
+
+.days sup {
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+
+.buttons__block {
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    top: 0;
+    font-size: 1.3em;
+}
+
+.edit,
+.delete {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.delete:hover {
+    color: hsl(0, 100%, 45%);
+}
+
+.edit:hover {
+    cursor: pointer;
+    color: hsla(104, 66%, 37%, 1);
+    text-decoration: none;
+}

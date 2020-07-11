@@ -1,0 +1,23 @@
+.button {
+    margin-top: 50px;
+    width: 180px;
+    padding: 15px 0;
+    border-radius: 25px;
+    background-color: #2082ce;
+    font-weight: bold;
+    color: white;
+    text-transform: uppercase;
+}
+
+.button:not([disabled]):hover,
+.button:focus {
+    box-shadow: 1px 2px 5px black;
+}
+
+.button:disabled {
+    filter: grayscale(100%);
+}
+
+ .registry{
+    background-color: green;
+}
