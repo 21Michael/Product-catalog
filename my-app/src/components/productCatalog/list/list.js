@@ -6,17 +6,19 @@ import { connect } from 'react-redux';
 
 const List = (props) => (
     <ul className={classes.list}>
- 		{ props.products.map((el, i) => 
- 			<Item 
- 				id={el.key}
-	 			img ={el.img}
-	            title={el.title}
-	            description={el.description}
-	            price={el.price}
-	            discount={el.discount}
-	            discountDuration={el.discountDuration}
-	 			key={el.key}
- 			/>) 
+ 		{ props.products
+	 		? props.products.map((el, i) => 
+	 			<Item 
+	 				id={el.key}
+		 			img ={el.img}
+		            title={el.title}
+		            description={el.description}
+		            price={el.price}
+		            discount={el.discount}
+		            discountDuration={el.discountDuration}
+		 			key={el.key}
+	 			/>) 
+	 		: null
  		}
  	</ul>
 )

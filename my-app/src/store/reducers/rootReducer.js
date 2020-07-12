@@ -1,10 +1,12 @@
-import { combineReducers } from 'redux'
-import autorizationReducer from './autorization.js'
-import productCatalogReducer from './productCatalog.js'
-import add_editProductReducer from './add-editProduct.js'
+import { combineReducers } from 'redux';
+import authorizationReducer from './authorization.js';
+import productCatalogReducer from './productCatalog.js';
+import addProductReducer from './addProduct.js';
+import editProductReducer from './editProduct.js';
 
 export default combineReducers({
-    autorization: autorizationReducer,
+    authorization: authorizationReducer,
     productCatalog: productCatalogReducer,
-    add_editProduct: add_editProductReducer
+    addProduct: addProductReducer,
+    editProduct: editProductReducer
 })

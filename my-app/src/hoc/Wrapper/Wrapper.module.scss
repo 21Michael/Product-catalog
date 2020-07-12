@@ -1,5 +1,5 @@
 * {
-    box-sizing: border-box;
+    box-sizing: content-box;
 }
 
 a {
@@ -37,4 +37,8 @@ body {
 
     overflow-x: hidden;
     background-color: #192024;
+}
+
+.hidden{
+    display: none;
 }

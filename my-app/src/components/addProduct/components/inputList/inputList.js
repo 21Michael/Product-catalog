@@ -2,7 +2,7 @@ import React from 'react';
 import classes from './inputList.module.scss';
 import Input from './input/input.js';
 import { connect } from 'react-redux'
-import { onChangeInput } from '../../../../store/actions/autorization.js'
+import { onChangeInput } from '../../../../store/actions/addProduct.js'
 
 const InputList = (props) => (
     <div className ={classes.wrapper}> 
@@ -18,12 +18,13 @@ const InputList = (props) => (
 				onChange={ props.onChangeInput}
 			/>
 		)}
+		
 	</div>
 )
 
 function mapStateToProps(state) {
     return {
-        form: state.autorization.form
+        form: state.addProduct.form
     }
 }
 

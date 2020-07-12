@@ -1,8 +1,13 @@
+.wrapper{
+  position: relative;
+  display: flex;
+  align-items: center
+}
 .button {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 130px;
+    padding: 0 20px;
     height: 100%;
     border: 1px solid #192024;
     border-radius: 25px;
@@ -19,5 +24,11 @@
 .button:focus {
     cursor: pointer;
     color: black;
-    box-shadow: 2px 2px 1px #ff824d;
+    box-shadow: 1px 2px 1px #ff824d;
+}
+
+.email{
+    font-weight: bolder;
+    color: white;
+    margin-right: 20px;
 }

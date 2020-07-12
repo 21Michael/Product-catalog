@@ -1,4 +1,4 @@
-import { CHANGE_INPUT } from '../actions/actionTypes.js'
+import { CHANGE_INPUT, WRONG_AUTHORIZE, CORRECT_AUTHORIZE, AUTHORIZED } from '../actions/actionTypes.js'
 
 const initialState = {
     form: {
@@ -10,7 +10,7 @@ const initialState = {
             required: true,
             validation: {
                 valid: false,
-                errorMessage: 'Incorrect E-mail',
+                errorMessage: 'Invalid E-mail',
                 changed: false,
                 validateOn: {
                     email: true,
@@ -26,7 +26,7 @@ const initialState = {
             required: true,
             validation: {
                 valid: false,
-                errorMessage: 'Incorrect password',
+                errorMessage: 'Invalid password',
                 changed: false,
                 validateOn: {
                     minLength: 6
@@ -49,7 +49,15 @@ const initialState = {
             disabled: true
         }
 
+    },
+    currentUser: {
+        answerType: false,
+        message: '',
+        authorized: {
+            email: false
+        }
     }
+
 }
 
 export default function autorizationReducer(state = initialState, action) {
@@ -68,6 +76,17 @@ export default function autorizationReducer(state = initialState, action) {
             });
 
             return { ...state, form: { ...state.form }, buttons: { ...state.buttons } }
+        case WRONG_AUTHORIZE:
+            state.currentUser.message = action.errorMessage;
+            state.currentUser.answerType = action.answerType;
+            return { ...state, currentUser: { ...state.currentUser } }
+        case CORRECT_AUTHORIZE:
+            state.currentUser.message = action.successMessage;
+            state.currentUser.answerType = action.answerType;
+            return { ...state, currentUser: { ...state.currentUser } }
+        case AUTHORIZED:
+            state.currentUser.authorized.email = action.userEmail;
+            return { ...state, currentUser: { ...state.currentUser } }
         default:
             return state
     }
