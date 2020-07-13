@@ -11,7 +11,7 @@ const List = (props) => (
 	 			<Item 
 	 				id={el.key}
 		 			img ={el.img}
-		            title={el.title}
+		            name={el.name}
 		            description={el.description}
 		            price={el.price}
 		            discount={el.discount}

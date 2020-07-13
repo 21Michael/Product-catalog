@@ -1,13 +1,18 @@
-import axios from 'axios';
-import { validationInput } from '../../validation/validation.js';
-import { CHANGE_INPUT, LOGIN, WRONG_AUTHORIZE, CORRECT_AUTHORIZE, AUTHORIZED } from './actionTypes.js';
+import Axios from '../../utiles/axious.js'
+import { validationInput } from '../../utiles/validation.js';
+import { CHANGE_INPUT, LOGIN, WRONG_AUTHORIZE, CORRECT_AUTHORIZE, AUTHORIZED, CLEAN_FORM } from './actionTypes.js';
 
 export function onChangeInput(value, name, validation) {
     return { type: CHANGE_INPUT, value: value, name: name, validation: validationInput(value, validation) }
 }
 
 
-export function onClickSubmit(email, password, name, history) {
+export function onClickSubmit(props) {
+    const email = props.form.email.value;
+    const password = props.form.password.value;
+    const name = props.name;
+    const history = props.history;
+
     return dispatch => {
         const authData = {
             email,
@@ -23,32 +28,31 @@ export function onClickSubmit(email, password, name, history) {
     }
 }
 
-export function signIn(authData,history) {
+export function signIn(authData, history) {
     return dispatch => {
-        axios.post('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBufuTzNyae7QJdcvBaWZS9cZNNV5RD9N4', authData)
-            .then(response => {
-                if (response.status === 200) {
-                    dispatch(correctAuthorize('logged in', 'success'));
-                    dispatch(userAuthorized(response.data.email))
-                    history.push('/productsCatalog')
-                }
-            }).catch(error => {
-                dispatch(wrongAuthorize(error, 'error'));
-            })
+        const url = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBufuTzNyae7QJdcvBaWZS9cZNNV5RD9N4';
+        const onSucces = (response) => {
+            dispatch(correctAuthorize('logged in', 'success'));
+            dispatch(userAuthorized(response.data.email))
+            history.push('/productsCatalog')
+        };
+        const onError = error => {
+            dispatch(wrongAuthorize(error, 'error'));
+        };
+        new Axios("post", url, authData).send(onSucces, onError);
     }
 };
 
 export function signUp(authData) {
     return dispatch => {
-        axios.post('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBufuTzNyae7QJdcvBaWZS9cZNNV5RD9N4', authData)
-            .then(response => {
-                if (response.status === 200) {
-                    dispatch(correctAuthorize('new account signed up. Please sign in.', 'success'))
-                }
-            })
-            .catch(error => {
-                dispatch(wrongAuthorize(error, 'error'));
-            })
+        const url = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBufuTzNyae7QJdcvBaWZS9cZNNV5RD9N4';
+        const onSucces = (response) => {
+              dispatch(correctAuthorize('new account signed up. Please sign in.', 'success'))
+        };
+        const onError = error => {
+            dispatch(wrongAuthorize(error, 'error'));
+        };
+        new Axios("post", url, authData).send(onSucces, onError);
     }
 };
 
@@ -70,4 +74,8 @@ export function correctAuthorize(successMessage, answerType) {
 
 export function userAuthorized(userEmail) {
     return { type: AUTHORIZED, userEmail }
+}
+
+export function cleanForm() {
+    return { type: CLEAN_FORM }
 }

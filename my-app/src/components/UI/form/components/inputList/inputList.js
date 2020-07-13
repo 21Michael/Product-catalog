@@ -1,8 +1,6 @@
 import React from 'react';
 import classes from './inputList.module.scss';
 import Input from './input/input.js';
-import { connect } from 'react-redux'
-import { onChangeInput } from '../../../../store/actions/addProduct.js'
 
 const InputList = (props) => (
     <div className ={classes.wrapper}> 
@@ -11,6 +9,7 @@ const InputList = (props) => (
 				key={i} 
 				name ={ props.form[key].name}
 	            value={ props.form[key].value}
+	            min = { props.form[key].minDate}
 	            type={props.form[key].type}
 	            placeholder={props.form[key].placeholder}
 	            validation ={props.form[key].validation}
@@ -22,16 +21,4 @@ const InputList = (props) => (
 	</div>
 )
 
-function mapStateToProps(state) {
-    return {
-        form: state.addProduct.form
-    }
-}
-
-function mapDispatchToProps(dispatch) {
-    return {
-        onChangeInput: (value, name, validation) => dispatch(onChangeInput(value, name, validation))
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(InputList);
+export default InputList;

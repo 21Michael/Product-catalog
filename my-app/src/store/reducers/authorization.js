@@ -1,6 +1,7 @@
-import { CHANGE_INPUT, WRONG_AUTHORIZE, CORRECT_AUTHORIZE, AUTHORIZED } from '../actions/actionTypes.js'
+import { CHANGE_INPUT, WRONG_AUTHORIZE, CORRECT_AUTHORIZE, AUTHORIZED, CLEAN_FORM } from '../actions/actionTypes.js'
 
 const initialState = {
+     titleForm: "Authorization",
     form: {
         'email': {
             name: 'email',
@@ -57,7 +58,6 @@ const initialState = {
             email: false
         }
     }
-
 }
 
 export default function autorizationReducer(state = initialState, action) {
@@ -86,6 +86,17 @@ export default function autorizationReducer(state = initialState, action) {
             return { ...state, currentUser: { ...state.currentUser } }
         case AUTHORIZED:
             state.currentUser.authorized.email = action.userEmail;
+            return { ...state, currentUser: { ...state.currentUser } }
+        case CLEAN_FORM:
+            Object.keys(state.form).forEach((input) => {
+                state.form[input].value = '';
+            });
+            Object.keys(state.buttons).forEach((button) => {
+                state.buttons[button].disabled = true;
+            });
+            state.currentUser.answerType = false;
+            state.currentUser.message = '';
+            state.currentUser.authorized.email= false;
             return { ...state, currentUser: { ...state.currentUser } }
         default:
             return state

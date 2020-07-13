@@ -8,10 +8,12 @@ import List from './list/list.js'
 import Header from './header/header.js'
 import { connect } from 'react-redux';
 import { getProducts } from '../../store/actions/productCatalog.js';
+import { cleanForm } from '../../store/actions/authorization.js'
 
 class ProductCatalog extends Component {
     componentDidMount() {
         this.props.getProducts();
+       // this.props.cleanForm();
     }
 
     render() {
@@ -28,7 +30,8 @@ class ProductCatalog extends Component {
 
 function mapDispatchToProps(dispatch) {
     return {
-        getProducts: () => dispatch(getProducts())
+        getProducts: () => dispatch(getProducts()),
+        cleanForm: () => dispatch(cleanForm())
     }
 }
 

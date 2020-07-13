@@ -1,6 +1,7 @@
-import { CHANGE_INPUT } from '../actions/actionTypes.js'
+import { CHANGE_INPUT_ADDPRODUCT } from '../actions/actionTypes.js'
 
 const initialState = {
+    titleForm: "Add product",
     form: {
         'name': {
             name: 'name',
@@ -20,6 +21,7 @@ const initialState = {
         },
         'photo': {
             name: 'photo',
+            file: '',
             value: '',
             type: 'file',
             placeholder: 'Photo',
@@ -29,10 +31,11 @@ const initialState = {
                 errorMessage: 'Invalid Photo',
                 changed: false,
                 validateOn: {
+                    photo: true
                 }
             }
         },
-          'description': {
+        'description': {
             name: 'description',
             value: '',
             type: 'text',
@@ -58,7 +61,7 @@ const initialState = {
                 errorMessage: 'Invalid price',
                 changed: false,
                 validateOn: {
-                    minLength: 999
+                    maxNum: 99999999.99
                 }
             }
         },
@@ -67,29 +70,30 @@ const initialState = {
             value: '',
             type: 'number',
             placeholder: 'Discount (%)',
-            required: true,
+            required: false,
             validation: {
                 valid: false,
                 errorMessage: 'Invalid discount',
                 changed: false,
                 validateOn: {
-                    minLength: 10,
-                    maxLength: 90
+                    minNum: 10,
+                    maxNum: 90
                 }
             }
         },
         'date': {
             name: 'date',
             value: '',
+            minDate: new Date().toISOString().slice(0, 10),
             type: 'date',
             placeholder: 'Date of the end of discount',
-            required: true,
+            required: false,
             validation: {
                 valid: false,
                 errorMessage: 'Invalid date',
                 changed: false,
                 validateOn: {
-                    minLength: 999
+                    date: true
                 }
             }
         }
@@ -101,12 +105,35 @@ const initialState = {
             type: 'submit',
             disabled: true
         }
+    },
+    currentUser: {
+        answerType: false,
+        message: '',
+        authorized: {
+            email: false
+        }
     }
 }
 
 export default function addProductReducer(state = initialState, action) {
     switch (action.type) {
-        case CHANGE_INPUT:
+        case CHANGE_INPUT_ADDPRODUCT:
+            if (action.file) {
+                state.form[action.name].file = action.file;
+            }
+
+            state.form[action.name].value = action.value;
+            state.form[action.name].validation.changed = action.validation.changed;
+            state.form[action.name].validation.valid = action.validation.valid;
+
+            let isValid = !Object.keys(state.form)
+                .map((input) => !!state.form[input].validation.valid)
+                .reduce((pr, cr) => pr * cr);
+          
+            Object.keys(state.buttons).forEach((button) => {
+                state.buttons[button].disabled = isValid;
+            });
+
             return { ...state, form: { ...state.form }, buttons: { ...state.buttons } }
         default:
             return state
