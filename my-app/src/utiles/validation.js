@@ -12,7 +12,7 @@ const validators = {
     },
     photo: (img, validation) => {
         if (validation.photo) {
-            return (img.size < 40000 || img.size > 16e6) ? false : true;
+            return (img.size < 10000 || img.size > 16e6) ? false : true;
         }
 
     },
