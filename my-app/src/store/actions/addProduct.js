@@ -17,7 +17,7 @@ export function onClickSubmit(props) {
         const discountDuration = Math.ceil((discountEnd - currentDate) / (1000 * 60 * 60 * 24));
 
         const img = form.photo.file;
-
+        console.log(img);
         const uploadTask = storage.ref(`/images/${img.name}`).put(img);
 
         uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
