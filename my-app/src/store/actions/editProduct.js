@@ -1,7 +1,7 @@
 import { validationInput } from '../../utiles/validation.js';
 import { getProducts } from './productCatalog.js'
 import { CHANGE_INPUT_EDITPRODUCT, GET_PRODUCTS } from './actionTypes.js';
-import Axios from '../../utiles/axious.js'
+import axios from 'axios'
 import { storage, firebase } from '../../firebase/firebase.js'
 
 export function onChangeInput(value, name, validation, file) {
@@ -48,14 +48,11 @@ export function onClickSubmit(props) {
                         price: form.price.value,
                         name: form.name.value
                     }
-
-                    const url = `https://product-catalog-6482a.firebaseio.com/products/${productId }.json`;
-                    const onSucces = (response) => {
-                        history.push('/productsCatalog');
-                        dispatch(getProducts());
-                    };
-
-                    new Axios("put", url, file).send(onSucces);
+                    axios.put(`https://product-catalog-6482a.firebaseio.com/products/${productId }.json`, file)
+                        .then(response => {
+                            history.push('/productsCatalog');
+                            dispatch(getProducts());
+                        });
                 })
             }
         );

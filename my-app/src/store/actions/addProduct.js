@@ -1,7 +1,7 @@
 import { validationInput } from '../../utiles/validation.js';
 import { getProducts } from './productCatalog.js'
 import { CHANGE_INPUT_ADDPRODUCT, GET_PRODUCTS } from './actionTypes.js';
-import Axios from '../../utiles/axious.js'
+import axios from 'axios'
 import { storage, firebase } from '../../firebase/firebase.js'
 
 
@@ -17,7 +17,9 @@ export function onClickSubmit(props) {
         const discountDuration = Math.ceil((discountEnd - currentDate) / (1000 * 60 * 60 * 24));
 
         const img = form.photo.file;
+
         const uploadTask = storage.ref(`/images/${img.name}`).put(img);
+
         uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
             function(snapshot) {
                 // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
@@ -46,12 +48,13 @@ export function onClickSubmit(props) {
                         price: form.price.value,
                         name: form.name.value
                     }
-                    const url = 'https://product-catalog-6482a.firebaseio.com/products.json';
-                    const onSucces = (response) => {
-                        history.push('/productsCatalog');
-                        dispatch(getProducts())
-                    };
-                    new Axios("post", url, file).send(onSucces);
+
+                    axios.post('https://product-catalog-6482a.firebaseio.com/products.json', file)
+                        .then(response => {
+                            history.push('/productsCatalog');
+                            dispatch(getProducts())
+                        });
+                        
                 })
             }
         );

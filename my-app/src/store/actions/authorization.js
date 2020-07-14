@@ -1,4 +1,4 @@
-import Axios from '../../utiles/axious.js'
+import axios from 'axios'
 import { validationInput } from '../../utiles/validation.js';
 import { CHANGE_INPUT, LOGIN, WRONG_AUTHORIZE, CORRECT_AUTHORIZE, AUTHORIZED, CLEAN_FORM } from './actionTypes.js';
 
@@ -30,29 +30,27 @@ export function onClickSubmit(props) {
 
 export function signIn(authData, history) {
     return dispatch => {
-        const url = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBufuTzNyae7QJdcvBaWZS9cZNNV5RD9N4';
-        const onSucces = (response) => {
-            dispatch(correctAuthorize('logged in', 'success'));
-            dispatch(userAuthorized(response.data.email))
-            history.push('/productsCatalog')
-        };
-        const onError = error => {
-            dispatch(wrongAuthorize(error, 'error'));
-        };
-        new Axios("post", url, authData).send(onSucces, onError);
+        axios.post('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBufuTzNyae7QJdcvBaWZS9cZNNV5RD9N4', authData)
+            .then(response => {
+                dispatch(correctAuthorize('logged in', 'success'));
+                dispatch(userAuthorized(response.data.email))
+                history.push('/productsCatalog')
+            })
+            .catch(error => {
+                dispatch(wrongAuthorize(error, 'error'));
+            })
     }
 };
 
 export function signUp(authData) {
     return dispatch => {
-        const url = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBufuTzNyae7QJdcvBaWZS9cZNNV5RD9N4';
-        const onSucces = (response) => {
-              dispatch(correctAuthorize('new account signed up. Please sign in.', 'success'))
-        };
-        const onError = error => {
-            dispatch(wrongAuthorize(error, 'error'));
-        };
-        new Axios("post", url, authData).send(onSucces, onError);
+        axios.post('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBufuTzNyae7QJdcvBaWZS9cZNNV5RD9N4', authData)
+            .then(response => {
+                dispatch(correctAuthorize('new account signed up. Please sign in.', 'success'))
+            })
+            .catch(error => {
+                dispatch(wrongAuthorize(error, 'error'));
+            })
     }
 };
 

@@ -1,21 +1,20 @@
 import { DELETE_PRODUCT, GET_PRODUCTS, EDIT_PRODUCT } from './actionTypes.js'
-import Axios from '../../utiles/axious.js'
+import axios from 'axios'
 
 export function deleteItem(id, products) {
     return (dispatch) => {
         products = products.filter((el) => el.key !== id);
-        const url = 'https://product-catalog-6482a.firebaseio.com/products.json';
-        const onSucces = (response) => {
-            dispatch({ type: DELETE_PRODUCT, products: products })
-        };
-        new Axios("put", url, products).send(onSucces);
+        axios.put('https://product-catalog-6482a.firebaseio.com/products.json', products)
+            .then(response => {
+                dispatch({ type: DELETE_PRODUCT, products: products })
+            })
     }
 }
 export function editItem(id, products) {
     return (dispatch) => {
         let product = null;
         products.forEach((el) => {
-            if (el.key === id) {product = el}
+            if (el.key === id) { product = el }
         });
 
         let dateEndDiscount = new Date();
@@ -29,10 +28,9 @@ export function editItem(id, products) {
 
 export function getProducts() {
     return (dispatch) => {
-        const url = 'https://product-catalog-6482a.firebaseio.com/products.json';
-        const onSucces = (response) => {
-            dispatch({ type: GET_PRODUCTS, products: response.data })
-        };
-        new Axios("get", url).send(onSucces);
+        axios.get('https://product-catalog-6482a.firebaseio.com/products.json')
+            .then(response => {
+                dispatch({ type: GET_PRODUCTS, products: response.data })
+            })
     }
 }
