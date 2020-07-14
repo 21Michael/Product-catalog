@@ -1,9 +1,5 @@
-.wrapper{
-  position: relative;
-  display: flex;
-  align-items: center
-}
-.button {
+
+.link {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -16,19 +12,13 @@
     font-size: 1.1em;
 }
 
-.button i {
+.link i {
     padding-left: 5px;
 }
 
-.button:hover,
-.button:focus {
+.link:hover,
+.link:focus {
     cursor: pointer;
     color: black;
     box-shadow: 1px 2px 1px #ff824d;
-}
-
-.email{
-    font-weight: bolder;
-    color: white;
-    margin-right: 20px;
 }
