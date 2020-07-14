@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
 import ErrorBoundary from '../../hoc/errorBoundary/error.js'
 import PropTypes from 'prop-types';
-import classes from './authorization.module.scss';
+import classes from './editProduct.module.scss';
 import { connect } from 'react-redux'
-import Form from '../../hoc/form/form.js';
-import ButtonList from './buttonList/buttonList.js'
-import InputList from './inputList/inputList.js'
+import ButtonList from '../../components/editProduct/buttonList/buttonList.js'
+import InputList from '../../components/editProduct/inputList/inputList.js'
+import Form from '../../hoc/form/form.js'
 
-class Authorization extends Component {
+class EditProduct extends Component {
     render() {
         return (
             <ErrorBoundary>
                 <div className ={classes.wrapper}>
-                    <Form titleForm={this.props.titleForm} >
+                   <Form titleForm={this.props.titleForm} >
                         <InputList/>
                         <ButtonList/> 
                     </Form>
@@ -24,8 +24,8 @@ class Authorization extends Component {
 
 function mapStateToProps(state) {
     return {
-        titleForm: state.authorization.titleForm
+        titleForm: state.editProduct.titleForm
     }
 }
 
-export default connect(mapStateToProps)(Authorization);
+export default connect(mapStateToProps)(EditProduct);

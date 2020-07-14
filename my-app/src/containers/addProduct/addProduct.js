@@ -5,8 +5,8 @@ import classes from './addProduct.module.scss'
 import { connect } from 'react-redux'
 import { onClickSubmit } from '../../store/actions/addProduct.js'
 import Form from '../../hoc/form/form.js'
-import ButtonList from './buttonList/buttonList.js'
-import InputList from './inputList/inputList.js'
+import ButtonList from '../../components/./addProduct/buttonList/buttonList.js'
+import InputList from '../../components/addProduct/inputList/inputList.js'
 
 class AddProduct extends Component {
     render() {

@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import classes from './productCatalog.module.scss';
 import axios from 'axios'
 
-import List from './list/list.js'
-import Header from './header/header.js'
+import List from '../../components/productCatalog/list/list.js'
+import Header from '../../components/productCatalog/header/header.js'
 import { connect } from 'react-redux';
 import { getProducts } from '../../store/actions/productCatalog.js';
 import { cleanForm } from '../../store/actions/authorization.js'
@@ -13,7 +13,6 @@ import { cleanForm } from '../../store/actions/authorization.js'
 class ProductCatalog extends Component {
     componentDidMount() {
         this.props.getProducts();
-       // this.props.cleanForm();
     }
 
     render() {
