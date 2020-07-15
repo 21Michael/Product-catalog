@@ -6,19 +6,22 @@ import { onChangeInput } from '../../../store/actions/editProduct.js'
 
 const InputList = (props) => (
     <div className ={classes.wrapper}> 
-		{Object.keys(props.form).map((key,i) => 
-			<Input 
-				key={i} 
-				name ={ props.form[key].name}
-	            value={ props.form[key].value}
-	            min = { props.form[key].minDate}
-	            type={props.form[key].type}
-	            placeholder={props.form[key].placeholder}
-	            validation ={props.form[key].validation}
-	            required = {props.form[key].required}
-				onChange={ props.onChangeInput}
-			/>
-		)}	
+    	<img  className={classes.img} src={props.imgValid ? props.imgSrc: ''} alt="img"/>
+    	<ul>
+			{Object.keys(props.form).map((key,i) => 
+				<Input 
+					key={i} 
+					name ={ props.form[key].name}
+		            value={ props.form[key].value}
+		            min = { props.form[key].minDate}
+		            type={props.form[key].type}
+		            placeholder={props.form[key].placeholder}
+		            validation ={props.form[key].validation}
+		            required = {props.form[key].required}
+					onChange={ props.onChangeInput}
+				/>
+			)}	
+		</ul>
 	</div>
 )
 
@@ -30,7 +33,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        onChangeInput: (value, name, validation,file) => dispatch(onChangeInput(value, name, validation,file))
+        onChangeInput: (value, name, validation, file) => dispatch(onChangeInput(value, name, validation, file))
     }
 }
 

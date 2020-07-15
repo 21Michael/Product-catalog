@@ -1,13 +1,12 @@
 import React from 'react';
 import classes from './input.module.scss'
 
-const Input = (props) => (
-    		<div className={classes.inputWrapper}>
+const Input = (props) => {
+   return  <li className={classes.item}>
 			 	<input 
 			    	value = {props.value}
 				    onChange = {(evt) =>{ 
-				    	let file = evt.target.files ? evt.target.files[0]: null; 
-				    	console.log(file)
+				    	let file = evt.target.files ? evt.target.files[0]: null;  
 				    	props.onChange(evt.target.value, props.name, props.validation, file )} 
 				    }
 				    min={props.min}
@@ -21,7 +20,8 @@ const Input = (props) => (
 			    		?<span>{props.validation.errorMessage} </span>
 			    		: null
 			    }
-	    	</div>
-)
+	    	</li>
+}
+
 
 export default Input;

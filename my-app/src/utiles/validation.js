@@ -10,11 +10,8 @@ const validators = {
             return !(date > currentDate) ? false : true;
         }
     },
-    photo: (img, validation) => {
-        if (validation.photo) {
-            return (img.size < 10000 || img.size > 16e6) ? false : true;
-        }
-
+    photo: (sizePhoto, validation) => {
+        return !!(sizePhoto.map((size) => (200 <= size && size <= 4000) ? true : false).reduce((c,n)=> c*n));
     },
     minLength: (value, validation) => {
         if (validation.minLength) {
