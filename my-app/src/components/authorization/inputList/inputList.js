@@ -6,19 +6,21 @@ import { onChangeInput } from '../../../store/actions/authorization.js'
 
 const InputList = (props) => (
     <div className ={classes.wrapper}> 
-		{Object.keys(props.form).map((key,i) => 
-			<Input 
-				key={i} 
-				name ={ props.form[key].name}
-	            value={ props.form[key].value}
-	            min = { props.form[key].minDate}
-	            type={props.form[key].type}
-	            placeholder={props.form[key].placeholder}
-	            validation ={props.form[key].validation}
-	            required = {props.form[key].required}
-				onChange={ props.onChangeInput}
-			/>
-		)}	
+    	<ul  className ={classes.list}>
+			{Object.keys(props.form).map((key,i) => 
+				<Input 
+					key={i} 
+					name ={ props.form[key].name}
+		            value={ props.form[key].value}
+		            min = { props.form[key].minDate}
+		            type={props.form[key].type}
+		            placeholder={props.form[key].placeholder}
+		            validation ={props.form[key].validation}
+		            required = {props.form[key].required}
+					onChange={ props.onChangeInput}
+				/>
+			)}	
+		</ul>
 	</div>
 )
 

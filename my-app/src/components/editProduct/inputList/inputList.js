@@ -2,15 +2,16 @@ import React from 'react';
 import classes from './inputList.module.scss';
 import Input from '../../UI/input/input.js'
 import { connect } from 'react-redux'
-import { onChangeInput } from '../../../store/actions/editProduct.js'
+import { onChangeInput } from '../../../store/actions/productForm.js'
 
 const InputList = (props) => (
     <div className ={classes.wrapper}> 
-    	<img  className={classes.img} src={props.imgValid ? props.imgSrc: ''} alt="img"/>
+    	<img  className={classes.img} src={props.imgSrc} alt="img"/>
     	<ul>
 			{Object.keys(props.form).map((key,i) => 
 				<Input 
 					key={i} 
+					file = { props.form[key].file}
 					name ={ props.form[key].name}
 		            value={ props.form[key].value}
 		            min = { props.form[key].minDate}
@@ -27,7 +28,8 @@ const InputList = (props) => (
 
 function mapStateToProps(state) {
     return {
-        form: state.editProduct.form,
+        form: state.productForm.form,
+        imgSrc: state.productForm.form.photo.fileURL
     }
 }
 

@@ -1,7 +1,6 @@
-import { CHANGE_INPUT_ADDPRODUCT, CLEAN_ADDPRODUCT_FORM } from '../actions/actionTypes.js'
+import { CHANGE_INPUT_ADDPRODUCT, CLEAN_ADDPRODUCT_FORM, EDIT_PRODUCT } from '../actions/actionTypes.js'
 
 const initialState = {
-    titleForm: "Add product",
     form: {
         'photo': {
             name: 'photo',
@@ -115,7 +114,7 @@ const initialState = {
     }
 }
 
-export default function addProductReducer(state = initialState, action) {
+export default function productFormReducer(state = initialState, action) {
     switch (action.type) {
         case CHANGE_INPUT_ADDPRODUCT:
             if (action.file) {
@@ -136,6 +135,15 @@ export default function addProductReducer(state = initialState, action) {
             });
 
             return { ...state, form: { ...state.form }, buttons: { ...state.buttons } }
+        case EDIT_PRODUCT:
+            Object.keys(state.form).forEach((input) => {
+                state.form[input].value = action.product[input];
+                state.form[input].validation.valid = true;
+            });
+            state.buttons.uploadButton.disabled = false;
+            state.form.photo.fileURL = action.product.img;
+            state.productID = action.id;
+            return { ...state }
         case CLEAN_ADDPRODUCT_FORM:
             Object.keys(state.form).forEach((input) => {
                 state.form[input].value = '';

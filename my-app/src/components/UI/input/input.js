@@ -2,9 +2,11 @@ import React from 'react';
 import classes from './input.module.scss'
 
 const Input = (props) => {
+	console.log(props)
    return  <li className={classes.item}>
 			 	<input 
 			    	value = {props.value}
+			    	file = {props.file}
 				    onChange = {(evt) =>{ 
 				    	let file = evt.target.files ? evt.target.files[0]: null;  
 				    	props.onChange(evt.target.value, props.name, props.validation, file )} 

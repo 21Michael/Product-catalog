@@ -2,14 +2,14 @@ import { DELETE_PRODUCT, GET_PRODUCTS } from '../actions/actionTypes.js'
 
 const initialState = {
     products: [],
-    buttons:{
-        addButton:{
-            name:'Add product',
+    buttons: {
+        addButton: {
+            name: 'Add product',
             to: '/addProduct',
             icon: 'icon-plus'
         },
-        signInButton:{
-            name:'Sign In',
+        signInButton: {
+            name: 'Sign In',
             to: '/',
             icon: 'icon-signin'
         }
@@ -18,14 +18,15 @@ const initialState = {
 export default function productCatalogReducer(state = initialState, action) {
     switch (action.type) {
         case DELETE_PRODUCT:
-            return { ...state, products:  action.products  }
+            return { ...state, products: action.products }
         case GET_PRODUCTS:
+            if (!action.products) { return { ...state } }
             let getProducts = [];
-            Object.keys(action.products).forEach( (key) =>{
+            Object.keys(action.products).forEach((key) => {
                 action.products[key].key = key;
                 getProducts.push(action.products[key])
             });
-            return { ...state, products:  getProducts  }
+            return { ...state, products: getProducts }
         default:
             return state
     }

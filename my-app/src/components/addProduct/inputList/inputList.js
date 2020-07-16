@@ -2,7 +2,7 @@ import React from 'react';
 import classes from './inputList.module.scss';
 import Input from '../../UI/input/input.js'
 import { connect } from 'react-redux'
-import { onChangeInput } from '../../../store/actions/addProduct.js'
+import { onChangeInput } from '../../../store/actions/productForm.js'
 
 const InputList = (props) => (
     <div className ={classes.wrapper}> 
@@ -27,9 +27,9 @@ const InputList = (props) => (
 
 function mapStateToProps(state) {
     return {
-        form: state.addProduct.form,
-        imgValid: state.addProduct.form.photo.validation.valid,
-        imgSrc: state.addProduct.form.photo.fileURL
+        form: state.productForm.form,
+        imgValid: state.productForm.form.photo.validation.valid,
+        imgSrc: state.productForm.form.photo.fileURL
     }
 }
 

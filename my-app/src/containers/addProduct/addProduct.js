@@ -2,10 +2,9 @@ import React, { Component } from 'react'
 import ErrorBoundary from '../../hoc/errorBoundary/error.js'
 import PropTypes from 'prop-types'
 import classes from './addProduct.module.scss'
-import { connect } from 'react-redux'
-import { onClickSubmit } from '../../store/actions/addProduct.js'
+
 import Form from '../../hoc/form/form.js'
-import ButtonList from '../../components/./addProduct/buttonList/buttonList.js'
+import ButtonList from '../../components/addProduct/buttonList/buttonList.js'
 import InputList from '../../components/addProduct/inputList/inputList.js'
 
 class AddProduct extends Component {
@@ -13,7 +12,7 @@ class AddProduct extends Component {
         return (
             <ErrorBoundary>
               <div className ={classes.wrapper}>
-                    <Form titleForm={this.props.titleForm} >
+                    <Form titleForm={'Add product'} >
                         <InputList/>
                         <ButtonList/> 
                     </Form>
@@ -23,10 +22,6 @@ class AddProduct extends Component {
     }
 }
 
-function mapStateToProps(state) {
-    return {
-        titleForm: state.addProduct.titleForm
-    }
-}
 
-export default connect(mapStateToProps)(AddProduct);
+
+export default AddProduct;

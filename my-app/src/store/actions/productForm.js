@@ -26,14 +26,13 @@ export function onChangeInput(value, name, validation, file) {
 
 export function onClickSubmit(props) {
     const form = props.form;
-    const history = props.history;
+
     return dispatch => {
         const discountEnd = new Date(form.date.value);
         const currentDate = new Date();
         const discountDuration = Math.ceil((discountEnd - currentDate) / (1000 * 60 * 60 * 24));
 
         const img = form.photo.file;
-        console.log(form);
         const uploadTask = storage.ref(`/images/${img.name}`).put(img);
 
         uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
@@ -55,6 +54,7 @@ export function onClickSubmit(props) {
             },
             function() {
                 uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+                    
                     const file = {
                         description: form.description.value,
                         discount: form.discount.value,
@@ -65,13 +65,11 @@ export function onClickSubmit(props) {
                         name: form.name.value
                     }
 
-                    axios.post('https://product-catalog-6482a.firebaseio.com/products.json', file)
-                        .then(response => {
-                            history.push('/productsCatalog');
-                            dispatch(getProducts());
-                            dispatch(cleanForm());
-                        });
-
+                    if (props.reqType === 'add') {
+                        dispatch(addProductForm(file, props.history))
+                    } else if (props.reqType === 'edit') {
+                        dispatch(editProductForm(file, props.history, props.id))
+                    }
                 })
             }
         );
@@ -81,3 +79,23 @@ export function onClickSubmit(props) {
 export function cleanForm() {
     return { type: CLEAN_ADDPRODUCT_FORM };
 };
+
+export function editProductForm(file, history, productId) {
+    return dispatch => {
+        axios.put(`https://product-catalog-6482a.firebaseio.com/products/${productId }.json`, file)
+            .then(response => {
+                history.push('/productsCatalog');
+                dispatch(getProducts());
+            });
+    }
+}
+export function addProductForm(file, history) {
+    return dispatch => {
+        axios.post('https://product-catalog-6482a.firebaseio.com/products.json', file)
+            .then(response => {
+                history.push('/productsCatalog');
+                dispatch(getProducts());
+                dispatch(cleanForm());
+            });
+    }
+}

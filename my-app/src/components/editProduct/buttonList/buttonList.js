@@ -2,7 +2,7 @@ import React from 'react';
 import classes from './buttonList.module.scss';
 import Button from '../../UI/button/button.js';
 import { connect } from 'react-redux'
-import { onClickSubmit } from '../../../store/actions/editProduct.js'
+import { onClickSubmit } from '../../../store/actions/productForm.js'
 
 const ButtonList = (props) => {
     const createClass = () => {
@@ -32,6 +32,7 @@ const ButtonList = (props) => {
                         onClick = {props.onClickSubmit}
                         form={props.form} 
                         id={props.id}
+                        reqType={'edit'}
                     />
                 )}
             </div>
@@ -39,10 +40,10 @@ const ButtonList = (props) => {
 
 function mapStateToProps(state) {
     return {
-        id: state.editProduct.productID,
-        form: state.editProduct.form,
-        buttons: state.editProduct.buttons,
-        currentUser: state.editProduct.currentUser
+        id: state.productForm.productID,
+        form: state.productForm.form,
+        buttons: state.productForm.buttons,
+        currentUser: state.productForm.currentUser
     }
 }
 

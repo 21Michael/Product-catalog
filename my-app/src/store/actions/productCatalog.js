@@ -20,7 +20,7 @@ export function editItem(id, products) {
         let dateEndDiscount = new Date();
         dateEndDiscount.setDate(dateEndDiscount.getDate() + product.discountDuration);
         product.date = dateEndDiscount.toISOString().slice(0, 10);
-
+        
         dispatch({ type: EDIT_PRODUCT, product, id })
 
     }
