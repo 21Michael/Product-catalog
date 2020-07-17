@@ -1,5 +1,6 @@
 import { DELETE_PRODUCT, GET_PRODUCTS, EDIT_PRODUCT } from './actionTypes.js'
 import axios from 'axios'
+import Time from '../../utiles/time.js'
 
 export function deleteItem(id, products) {
     return (dispatch) => {
@@ -16,11 +17,9 @@ export function editItem(id, products) {
         products.forEach((el) => {
             if (el.key === id) { product = el }
         });
-
-        let dateEndDiscount = new Date();
-        dateEndDiscount.setDate(dateEndDiscount.getDate() + product.discountDuration);
-        product.date = dateEndDiscount.toISOString().slice(0, 10);
         
+        product.date = Time().addDays(product.discountDuration).toISOString().slice(0, 10);
+
         dispatch({ type: EDIT_PRODUCT, product, id })
 
     }

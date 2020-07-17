@@ -21,11 +21,13 @@ export default function productCatalogReducer(state = initialState, action) {
             return { ...state, products: action.products }
         case GET_PRODUCTS:
             if (!action.products) { return { ...state } }
+                
             let getProducts = [];
             Object.keys(action.products).forEach((key) => {
                 action.products[key].key = key;
                 getProducts.push(action.products[key])
             });
+
             return { ...state, products: getProducts }
         default:
             return state

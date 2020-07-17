@@ -140,9 +140,11 @@ export default function productFormReducer(state = initialState, action) {
                 state.form[input].value = action.product[input];
                 state.form[input].validation.valid = true;
             });
+            
             state.buttons.uploadButton.disabled = false;
             state.form.photo.fileURL = action.product.img;
             state.productID = action.id;
+
             return { ...state }
         case CLEAN_ADDPRODUCT_FORM:
             Object.keys(state.form).forEach((input) => {
