@@ -1,17 +1,18 @@
+//==========================COMMON==========================//
 export const CHANGE_INPUT = 'CHANGE_INPUT';
-export const LOGIN = 'LOGIN';
+export const CLEAN_FORM = 'CLEAN_FORM';
 
-export const DELETE_PRODUCT = 'DELETE_PRODUCT';
+//==========================Autharization==========================//
 export const WRONG_AUTHORIZE = 'WRONG_AUTHORIZE';
-export const GET_PRODUCTS = 'GET_PRODUCTS';
 export const CORRECT_AUTHORIZE = 'CORRECT_AUTHORIZE';
 export const AUTHORIZED = 'AUTHORIZED';
 
-export const CHANGE_INPUT_ADDPRODUCT = 'CHANGE_INPUT_ADDPRODUCT';
-export const CLEAN_FORM = 'CLEAN_FORM';
+//==========================Product catalog==========================//
+export const DELETE_PRODUCT = 'DELETE_PRODUCT';
+export const GET_PRODUCTS = 'GET_PRODUCTS';
 
+//==========================Product form==========================//
+
+export const CHANGE_INPUT_PRODUCTFORM = 'CHANGE_INPUT_ADDPRODUCT';
+export const CLEAN_PRODUCTFORM_FORM = 'CLEAN_ADDPRODUCT_FORM';
 export const EDIT_PRODUCT = 'EDIT_PRODUCT';
-export const CHANGE_INPUT_EDITPRODUCT = 'CHANGE_INPUT_EDITPRODUCT';
-
-
-export const CLEAN_ADDPRODUCT_FORM = 'CLEAN_ADDPRODUCT_FORM';

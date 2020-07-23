@@ -1,7 +1,7 @@
 import { validationInput } from '../../utiles/validation.js';
 import { getProducts } from './productCatalog.js'
 import Time from '../../utiles/time.js'
-import { CHANGE_INPUT_ADDPRODUCT, GET_PRODUCTS, CLEAN_ADDPRODUCT_FORM } from './actionTypes.js';
+import { CHANGE_INPUT_PRODUCTFORM, GET_PRODUCTS, CLEAN_PRODUCTFORM_FORM } from './actionTypes.js';
 import { database, storage, firebase, firebaseHandlers } from '../../firebase/firebase.js'
 
 export function onChangeInput(value, name, validation, file) {
@@ -17,7 +17,7 @@ export function onChangeInput(value, name, validation, file) {
                 img.onload = function() {
                     value = [img.width, img.height];
                     dispatch({
-                        type: CHANGE_INPUT_ADDPRODUCT,
+                        type: CHANGE_INPUT_PRODUCTFORM,
                         name: name,
                         validation: validationInput(value, validation),
                         fileUrl: reader.result,
@@ -27,7 +27,7 @@ export function onChangeInput(value, name, validation, file) {
             }
         } else {
             dispatch({
-                type: CHANGE_INPUT_ADDPRODUCT,
+                type: CHANGE_INPUT_PRODUCTFORM,
                 value: value,
                 name: name,
                 validation: validationInput(value, validation)
@@ -41,9 +41,9 @@ export function onClickSubmit(props) {
 
     return dispatch => {
         const file = {
-            description: form.description.value,
+            description: form.description.value || '',
             discount: form.discount.value,
-            discountDuration: Time(form.date.value).durationDays(),
+            discountDuration: Time(form.date.value).durationDays() || '',
             img: form.photo.fileURL,
             key: Math.floor(Math.random() * 100),
             price: form.price.value,
@@ -63,9 +63,9 @@ export function onClickSubmit(props) {
                         .then(downloadURL => {
                             file.img = downloadURL;
                             if (props.reqType === 'add') {
-                                dispatch(addProductForm(file, props.history, props.id))
+                                dispatch(addProductForm(file, props.history, props.id));
                             } else if (props.reqType === 'edit') {
-                                dispatch(editProductForm(file, props.history, props.id))
+                                dispatch(editProductForm(file, props.history, props.id));
                             }
                         })
                 }
@@ -76,8 +76,8 @@ export function onClickSubmit(props) {
     }
 }
 
-export function cleanForm() {
-    return { type: CLEAN_ADDPRODUCT_FORM };
+function cleanForm() {
+    return { type: CLEAN_PRODUCTFORM_FORM };
 };
 
 export function editProductForm(file, history, productId) {
@@ -87,6 +87,7 @@ export function editProductForm(file, history, productId) {
             .then(response => {
                 history.push('/productsCatalog');
                 dispatch(getProducts());
+                dispatch(cleanForm());
             });
     }
 }

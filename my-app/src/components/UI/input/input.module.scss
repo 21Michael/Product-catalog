@@ -2,7 +2,12 @@
     position: relative;
     padding: 20px 0 10px 0;
 }
-
+.dot{
+    position: absolute;
+    color: #e50000;
+    left: -5px;
+    line-height: 1px;
+}
 input {
     width: 100%;
     font-size: 1.1em;

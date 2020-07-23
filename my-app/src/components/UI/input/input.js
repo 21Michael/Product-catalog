@@ -3,6 +3,9 @@ import classes from './input.module.scss'
 
 const Input = (props) => {
    return  <li className={classes.item}>
+   				{
+   					props.required ? <span className={classes.dot}>*</span> : null
+   				}
 			 	<input 
 			    	value = {props.value}
 			    	file = {props.file}

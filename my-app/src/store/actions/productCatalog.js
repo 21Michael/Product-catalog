@@ -5,8 +5,8 @@ import Time from '../../utiles/time.js'
 export function deleteItem(id, products) {
     return (dispatch) => {
         products = products.filter((el) => el.key !== id);
-        database.ref('/products')
-            .set(products)
+        database.ref(`/products/${id}`)
+            .remove()
             .then(response => {
                 dispatch({ type: DELETE_PRODUCT, products: products });
             });

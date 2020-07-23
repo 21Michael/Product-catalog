@@ -1,4 +1,4 @@
-import { CHANGE_INPUT_ADDPRODUCT, CLEAN_ADDPRODUCT_FORM, EDIT_PRODUCT } from '../actions/actionTypes.js'
+import { CHANGE_INPUT_PRODUCTFORM, CLEAN_PRODUCTFORM_FORM, EDIT_PRODUCT } from '../actions/actionTypes.js'
 
 const initialState = {
     form: {
@@ -116,7 +116,7 @@ const initialState = {
 
 export default function productFormReducer(state = initialState, action) {
     switch (action.type) {
-        case CHANGE_INPUT_ADDPRODUCT:
+        case CHANGE_INPUT_PRODUCTFORM:
             if (action.file) {
                 state.form.photo.fileURL = action.fileUrl;
                 state.form.photo.file = action.file;
@@ -126,13 +126,27 @@ export default function productFormReducer(state = initialState, action) {
             state.form[action.name].validation.changed = action.validation.changed;
             state.form[action.name].validation.valid = action.validation.valid;
 
-            let isValid = !Object.keys(state.form)
-                .map((input) => !!state.form[input].validation.valid)
+            if (state.form.discount.value) {
+                state.form.date.required = true
+            } else {
+                state.form.date.required = false
+            }
+
+            let isValid = Object.keys(state.form)
+                .map((input) => {
+                    if (state.form[input].required) {
+                        return state.form[input].validation.valid ? true : false
+                    } else if (!state.form[input].required) {
+                        if (state.form[input].validation.changed) {
+                            return state.form[input].validation.valid ? true : false
+                        } else {
+                            return true
+                        }
+                    }
+                })
                 .reduce((pr, cr) => pr * cr);
 
-            Object.keys(state.buttons).forEach((button) => {
-                state.buttons[button].disabled = isValid;
-            });
+            state.buttons.uploadButton.disabled = !isValid;
 
             return { ...state, form: { ...state.form }, buttons: { ...state.buttons } }
         case EDIT_PRODUCT:
@@ -140,13 +154,13 @@ export default function productFormReducer(state = initialState, action) {
                 state.form[input].value = action.product[input];
                 state.form[input].validation.valid = true;
             });
-            
+
             state.buttons.uploadButton.disabled = false;
             state.form.photo.fileURL = action.product.img;
             state.productID = action.id;
 
             return { ...state }
-        case CLEAN_ADDPRODUCT_FORM:
+        case CLEAN_PRODUCTFORM_FORM:
             Object.keys(state.form).forEach((input) => {
                 state.form[input].value = '';
                 state.form[input].file = '';
