@@ -1,5 +1,7 @@
 import firebase from 'firebase/app'
 import 'firebase/storage'
+import 'firebase/database'
+import 'firebase/auth'
 
 var firebaseConfig = {
     apiKey: "AIzaSyBufuTzNyae7QJdcvBaWZS9cZNNV5RD9N4",
@@ -15,8 +17,31 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 const storage = firebase.storage();
+const database = firebase.database();
+const auth = firebase.auth();
+
+const firebaseHandlers = {
+    loading: function(snapshot) {
+        let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        console.log('Upload is ' + progress + '% done');
+        switch (snapshot.state) {
+            case firebase.storage.TaskState.PAUSED:
+                console.log('Upload is paused');
+                break;
+            case firebase.storage.TaskState.RUNNING:
+                console.log('Upload is running');
+                break;
+        }
+    },
+    error: function(error) {
+        console.log(error)
+    }
+};
 
 export {
+    auth,
+    database,
     storage,
-    firebase 
+    firebase,
+    firebaseHandlers
 }

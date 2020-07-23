@@ -2,25 +2,36 @@ import { validationInput } from '../../utiles/validation.js';
 import { getProducts } from './productCatalog.js'
 import Time from '../../utiles/time.js'
 import { CHANGE_INPUT_ADDPRODUCT, GET_PRODUCTS, CLEAN_ADDPRODUCT_FORM } from './actionTypes.js';
-import axios from 'axios'
-import { storage, firebase } from '../../firebase/firebase.js'
-
+import { database, storage, firebase, firebaseHandlers } from '../../firebase/firebase.js'
 
 export function onChangeInput(value, name, validation, file) {
     return dispatch => {
         if (file) {
             const reader = new FileReader();
             reader.readAsDataURL(file);
+
             reader.onload = function(evt) {
                 var img = document.createElement('img');
+                img.src = reader.result;
+
                 img.onload = function() {
                     value = [img.width, img.height];
-                    dispatch({ type: CHANGE_INPUT_ADDPRODUCT, name: name, validation: validationInput(value, validation), fileUrl: reader.result, file: file });
+                    dispatch({
+                        type: CHANGE_INPUT_ADDPRODUCT,
+                        name: name,
+                        validation: validationInput(value, validation),
+                        fileUrl: reader.result,
+                        file: file
+                    });
                 };
-                img.src = reader.result;
             }
         } else {
-            dispatch({ type: CHANGE_INPUT_ADDPRODUCT, value: value, name: name, validation: validationInput(value, validation) });
+            dispatch({
+                type: CHANGE_INPUT_ADDPRODUCT,
+                value: value,
+                name: name,
+                validation: validationInput(value, validation)
+            });
         }
     }
 }
@@ -43,31 +54,20 @@ export function onClickSubmit(props) {
             const img = form.photo.file;
             const uploadTask = storage.ref(`/images/${img.name}`).put(img);
 
-            uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
-                function(snapshot) {
-                    let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                    console.log('Upload is ' + progress + '% done');
-                    switch (snapshot.state) {
-                        case firebase.storage.TaskState.PAUSED:
-                            console.log('Upload is paused');
-                            break;
-                        case firebase.storage.TaskState.RUNNING:
-                            console.log('Upload is running');
-                            break;
-                    }
-                },
-                function(error) {
-                    console.log(error)
-                },
+            uploadTask.on(
+                firebase.storage.TaskEvent.STATE_CHANGED,
+                firebaseHandlers.loading,
+                firebaseHandlers.error,
                 function() {
-                    uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
-                        file.img = downloadURL;
-                        if (props.reqType === 'add') {
-                            dispatch(addProductForm(file, props.history))
-                        } else if (props.reqType === 'edit') {
-                            dispatch(editProductForm(file, props.history, props.id))
-                        }
-                    })
+                    uploadTask.snapshot.ref.getDownloadURL()
+                        .then(downloadURL => {
+                            file.img = downloadURL;
+                            if (props.reqType === 'add') {
+                                dispatch(addProductForm(file, props.history, props.id))
+                            } else if (props.reqType === 'edit') {
+                                dispatch(editProductForm(file, props.history, props.id))
+                            }
+                        })
                 }
             );
         } else {
@@ -82,7 +82,8 @@ export function cleanForm() {
 
 export function editProductForm(file, history, productId) {
     return dispatch => {
-        axios.put(`https://product-catalog-6482a.firebaseio.com/products/${productId }.json`, file)
+        database.ref(`/products/${productId}`)
+            .set(file)
             .then(response => {
                 history.push('/productsCatalog');
                 dispatch(getProducts());
@@ -91,7 +92,8 @@ export function editProductForm(file, history, productId) {
 }
 export function addProductForm(file, history) {
     return dispatch => {
-        axios.post('https://product-catalog-6482a.firebaseio.com/products.json', file)
+        database.ref('/products')
+            .push(file)
             .then(response => {
                 history.push('/productsCatalog');
                 dispatch(getProducts());
