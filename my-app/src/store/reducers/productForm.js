@@ -1,10 +1,11 @@
 import { CHANGE_INPUT_PRODUCTFORM, CLEAN_PRODUCTFORM_FORM, EDIT_PRODUCT } from '../actions/actionTypes.js'
 
 const initialState = {
+    productID: '',
     form: {
         'photo': {
             name: 'photo',
-            file: '',
+            file: {},
             fileURL: '',
             type: 'file',
             placeholder: 'Photo',
@@ -132,7 +133,7 @@ export default function productFormReducer(state = initialState, action) {
                 state.form.date.required = false
             }
 
-            let isValid = Object.keys(state.form)
+            let formValid = Object.keys(state.form)
                 .map((input) => {
                     if (state.form[input].required) {
                         return state.form[input].validation.valid ? true : false
@@ -146,7 +147,7 @@ export default function productFormReducer(state = initialState, action) {
                 })
                 .reduce((pr, cr) => pr * cr);
 
-            state.buttons.uploadButton.disabled = !isValid;
+            state.buttons.uploadButton.disabled = !formValid;
 
             return { ...state, form: { ...state.form }, buttons: { ...state.buttons } }
         case EDIT_PRODUCT:

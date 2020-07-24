@@ -1,6 +1,6 @@
-import { auth, firebase } from '../../firebase/firebase.js'
+import { auth } from '../../firebase/firebase.js'
 import { validationInput } from '../../utiles/validation.js';
-import { CHANGE_INPUT, LOGIN, WRONG_AUTHORIZE, CORRECT_AUTHORIZE, AUTHORIZED, CLEAN_FORM } from './actionTypes.js';
+import { CHANGE_INPUT, WRONG_AUTHORIZE, CORRECT_AUTHORIZE, AUTHORIZED, CLEAN_FORM } from './actionTypes.js';
 
 export function onChangeInput(value, name, validation) {
     return { type: CHANGE_INPUT, value: value, name: name, validation: validationInput(value, validation) }
@@ -33,7 +33,7 @@ export function signIn(authData, history) {
             .then(response => {
                 dispatch(correctAuthorize('logged in', 'success'));
                 dispatch(userAuthorized(response.user.email))
-                history.push('/productsCatalog')
+                history.push('/')
             })
             .catch(error => {
                 dispatch(wrongAuthorize(error.message, 'error'));

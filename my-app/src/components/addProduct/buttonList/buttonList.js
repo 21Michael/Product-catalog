@@ -1,5 +1,6 @@
 import React from 'react';
 import classes from './buttonList.module.scss';
+import PropTypes from 'prop-types';
 import Button from '../../UI/button/button.js';
 import { connect } from 'react-redux'
 import { onClickSubmit } from '../../../store/actions/productForm.js'
@@ -50,6 +51,13 @@ function mapDispatchToProps(dispatch) {
     return {
         onClickSubmit: (email, password, name, history) => dispatch(onClickSubmit(email, password, name, history))
     }
+}
+
+ButtonList.propTypes = {
+    form: PropTypes.object,
+    buttons: PropTypes.object,
+    currentUser: PropTypes.object,
+    onClickSubmit: PropTypes.func
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ButtonList);

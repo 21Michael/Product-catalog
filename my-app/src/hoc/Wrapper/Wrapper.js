@@ -9,7 +9,6 @@ import AddProduct from '../../containers/addProduct/addProduct.js';
 import EditProduct from '../../containers/editProduct/editProduct.js';
 
 import { Switch, Route } from 'react-router-dom'
-import { withRouter } from 'react-router-dom';
 
 class Layout extends Component {
     render() {
@@ -17,10 +16,10 @@ class Layout extends Component {
             <div className={classes['wrapper']}>
                 <Switch>
                     <Route exact path='/'>  
-                        <Authorization />
-                    </Route>
-                    <Route exact path='/productsCatalog'>  
                         <ProductCatalog />
+                    </Route>
+                     <Route exact path='/authorization'>  
+                        <Authorization />
                     </Route>
                     <Route exact path='/addProduct'>  
                         <AddProduct />

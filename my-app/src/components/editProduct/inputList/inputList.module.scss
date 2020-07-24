@@ -1,18 +1,5 @@
-.wrapper {
-    display: flex;
-    padding-bottom: 10px;
-    font-weight: bold;
-}
+@import '../../../scss/mixin.scss';
 
-.img {
-	margin: 20px 25px 10px 0;
-	width: 250px;
-	
-	background-color: grey;
-	border: 1px solid black;
-}
-.list{
-	position: relative;
-	display: flex;
-	flex-direction: column;
+.wrapper {
+    @include input-list;
 }

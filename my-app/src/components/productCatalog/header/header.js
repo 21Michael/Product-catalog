@@ -5,18 +5,18 @@ import Link from '../../UI/link/link.js'
 import { connect } from 'react-redux';
 
 const Header = (props) => (
-	<header className={classes.header}>
-    	<h1 className={classes.title}> Product catalog </h1> 
-    	<div className={classes.wrapper_button}>
-    		{
-				props.email 
-					?   <React.Fragment>
-							<div className={classes.email}>{ props.email} </div>
-		    				<Link button={props.addButton}/>
-		    			</React.Fragment>
-		    		: 	<Link button={props.signInButton}/>
-    		}
-    	</div>
+    <header className={classes.header}>
+        <h1 className={classes.title}> Product catalog </h1> 
+        <div className={classes.wrapper_button}>
+            {
+                props.email 
+                       ?<React.Fragment>
+                            <div className={classes.email}>{ props.email} </div>
+                            <Link button={props.addButton}/>
+                        </React.Fragment>
+                       :<Link button={props.signInButton}/>
+            }
+        </div>
     </header>
 )
 
@@ -24,8 +24,14 @@ function mapStateToProps(state) {
     return {
         email: state.authorization.currentUser.authorized.email,
         addButton: state.productCatalog.buttons.addButton,
-        signInButton: state.productCatalog.buttons.signInButton,
+        signInButton: state.productCatalog.buttons.signInButton
     }
+}
+
+Header.propTypes = {
+    email: PropTypes.string,
+    addButton: PropTypes.object,
+    signInButton: PropTypes.object
 }
 
 export default connect(mapStateToProps)(Header);

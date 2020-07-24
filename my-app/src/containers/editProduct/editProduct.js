@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import ErrorBoundary from '../../hoc/errorBoundary/error.js'
-import PropTypes from 'prop-types';
 import classes from './editProduct.module.scss';
 
 import ButtonList from '../../components/editProduct/buttonList/buttonList.js'
 import InputList from '../../components/editProduct/inputList/inputList.js'
-import Form from '../../hoc/form/form.js'
+import Form from '../../components/UI/form/form.js';
 
 class EditProduct extends Component {
     render() {

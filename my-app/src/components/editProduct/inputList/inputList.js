@@ -1,5 +1,6 @@
 import React from 'react';
 import classes from './inputList.module.scss';
+import PropTypes from 'prop-types';
 import Input from '../../UI/input/input.js'
 import { connect } from 'react-redux'
 import { onChangeInput } from '../../../store/actions/productForm.js'
@@ -7,7 +8,7 @@ import { onChangeInput } from '../../../store/actions/productForm.js'
 const InputList = (props) => (
     <div className ={classes.wrapper}> 
     	<img  className={classes.img} src={props.imgSrc} alt="img"/>
-    	<ul>
+    	<ul  className={classes.list}>
 			{Object.keys(props.form).map((key,i) => 
 				<Input 
 					key={i} 
@@ -37,6 +38,11 @@ function mapDispatchToProps(dispatch) {
     return {
         onChangeInput: (value, name, validation, file) => dispatch(onChangeInput(value, name, validation, file))
     }
+}
+InputList.propTypes = {
+    form: PropTypes.object,
+    imgSrc: PropTypes.string,
+    onChangeInput: PropTypes.func
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(InputList);

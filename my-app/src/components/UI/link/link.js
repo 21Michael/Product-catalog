@@ -10,4 +10,8 @@ const Link = (props) => (
 	    </NavLink>
 )
 
+Link.propTypes = {
+    button: PropTypes.object
+}
+
 export default Link;

@@ -1,3 +1,5 @@
+@import '../../../../scss/mixin.scss';
+
 .section {
     position: relative;
 }
@@ -29,8 +31,7 @@
 
 .item:hover,
 .item:focus {
-    cursor: pointer;
-    box-shadow: 2px 3px 1px #ff824d;
+    @include  hover-orange;
 }
 
 .img__block {
@@ -93,10 +94,8 @@
 }
 
 .days sup {
-    font-weight: bold;
     font-size: 1.2em;
 }
-
 
 .buttons__block {
     position: absolute;
@@ -118,11 +117,11 @@
 }
 
 .delete:hover {
-    color: hsl(0, 100%, 45%);
+    color: #e50000ff;
 }
 
 .edit:hover {
     cursor: pointer;
-    color: hsla(104, 66%, 37%, 1);
+    color: #419d20;
     text-decoration: none;
 }

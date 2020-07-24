@@ -3,7 +3,7 @@ import ErrorBoundary from '../../hoc/errorBoundary/error.js'
 import PropTypes from 'prop-types';
 import classes from './authorization.module.scss';
 import { connect } from 'react-redux'
-import Form from '../../hoc/form/form.js';
+import Form from '../../components/UI/form/form.js';
 import ButtonList from '../../components/authorization/buttonList/buttonList.js'
 import InputList from '../../components/authorization/inputList/inputList.js'
 
@@ -27,5 +27,8 @@ function mapStateToProps(state) {
         titleForm: state.authorization.titleForm
     }
 }
+Authorization.propTypes = {
+    titleForm: PropTypes.string
+};
 
 export default connect(mapStateToProps)(Authorization);

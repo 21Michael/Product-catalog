@@ -1,7 +1,7 @@
 import { validationInput } from '../../utiles/validation.js';
 import { getProducts } from './productCatalog.js'
 import Time from '../../utiles/time.js'
-import { CHANGE_INPUT_PRODUCTFORM, GET_PRODUCTS, CLEAN_PRODUCTFORM_FORM } from './actionTypes.js';
+import { CHANGE_INPUT_PRODUCTFORM, CLEAN_PRODUCTFORM_FORM } from './actionTypes.js';
 import { database, storage, firebase, firebaseHandlers } from '../../firebase/firebase.js'
 
 export function onChangeInput(value, name, validation, file) {
@@ -11,7 +11,7 @@ export function onChangeInput(value, name, validation, file) {
             reader.readAsDataURL(file);
 
             reader.onload = function(evt) {
-                var img = document.createElement('img');
+                const img = document.createElement('img');
                 img.src = reader.result;
 
                 img.onload = function() {
@@ -60,14 +60,14 @@ export function onClickSubmit(props) {
                 firebaseHandlers.error,
                 function() {
                     uploadTask.snapshot.ref.getDownloadURL()
-                        .then(downloadURL => {
-                            file.img = downloadURL;
-                            if (props.reqType === 'add') {
-                                dispatch(addProductForm(file, props.history, props.id));
-                            } else if (props.reqType === 'edit') {
-                                dispatch(editProductForm(file, props.history, props.id));
-                            }
-                        })
+                    .then(downloadURL => {
+                        file.img = downloadURL;
+                        if (props.reqType === 'add') {
+                            dispatch(addProductForm(file, props.history, props.id));
+                        } else if (props.reqType === 'edit') {
+                            dispatch(editProductForm(file, props.history, props.id));
+                        }
+                    })
                 }
             );
         } else {

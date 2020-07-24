@@ -29,6 +29,8 @@ function mapStateToProps(state) {
     }
 }
 
-
+List.propTypes = {
+    products: PropTypes.array
+}
 
 export default connect(mapStateToProps)(List);

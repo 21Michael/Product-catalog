@@ -31,6 +31,8 @@ const firebaseHandlers = {
             case firebase.storage.TaskState.RUNNING:
                 console.log('Upload is running');
                 break;
+            default:
+                break;
         }
     },
     error: function(error) {

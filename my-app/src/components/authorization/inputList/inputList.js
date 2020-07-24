@@ -1,5 +1,6 @@
 import React from 'react';
 import classes from './inputList.module.scss';
+import PropTypes from 'prop-types';
 import Input from '../../UI/input/input.js'
 import { connect } from 'react-redux'
 import { onChangeInput } from '../../../store/actions/authorization.js'
@@ -34,6 +35,11 @@ function mapDispatchToProps(dispatch) {
     return {
         onChangeInput: (value, name, validation) => dispatch(onChangeInput(value, name, validation))
     }
+}
+
+InputList.propTypes = {
+    form: PropTypes.object,
+    onChangeInput: PropTypes.func
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(InputList);

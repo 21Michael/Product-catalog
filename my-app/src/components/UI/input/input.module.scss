@@ -2,13 +2,15 @@
     position: relative;
     padding: 20px 0 10px 0;
 }
-.dot{
+
+.dot {
     position: absolute;
     color: #e50000;
     left: -5px;
     line-height: 1px;
 }
-input {
+
+.input {
     width: 100%;
     font-size: 1.1em;
     padding: 5px 0;
@@ -16,20 +18,20 @@ input {
     border-bottom: 1px solid rgba(0, 0, 255, 0.3);
 }
 
-input::placeholder {
-    color: grey;
+.input::placeholder {
+    color: #808080;
     font-weight: bold;
 }
 
-input:hover,
-input:focus {
-    border-bottom: 1px solid blue;
+.input:hover,
+.input:focus {
+    border-bottom: 1px solid #00f;
 }
 
-input+span {
+.input+span {
     position: absolute;
-    bottom:0;
-    left:5px;
+    bottom: 0;
+    left: 5px;
     line-height: 0;
     font-style: italic;
     font-size: 0.8em;

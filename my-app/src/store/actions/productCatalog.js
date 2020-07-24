@@ -1,5 +1,5 @@
 import { DELETE_PRODUCT, GET_PRODUCTS, EDIT_PRODUCT } from './actionTypes.js'
-import { database, firebase } from '../../firebase/firebase.js'
+import { database } from '../../firebase/firebase.js'
 import Time from '../../utiles/time.js'
 
 export function deleteItem(id, products) {

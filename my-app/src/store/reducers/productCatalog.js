@@ -10,7 +10,7 @@ const initialState = {
         },
         signInButton: {
             name: 'Sign In',
-            to: '/',
+            to: '/authorization',
             icon: 'icon-signin'
         }
     }
